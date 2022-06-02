@@ -1,16 +1,15 @@
-ARCH ?= aarch64-linux-gnu-
-RUSTARCH ?= aarch64-unknown-none-softfloat
+ARCH ?=  x86_64
+RUSTARCH ?= x86_64/ 
 
 ifeq ($(shell uname),Darwin)
 USE_CLANG ?= 1
 $(info INFO: Building on Darwin)
-ifeq ($(shell uname -p),arm)
-TOOLCHAIN ?= /opt/homebrew/opt/llvm/bin/
+
+TOOLCHAIN ?= /usr/local/opt/llvm/bin/
 else
 TOOLCHAIN ?= /usr/local/opt/llvm/bin/
 endif
 $(info INFO: Toolchain path: $(TOOLCHAIN))
-endif
 
 ifeq ($(USE_CLANG),1)
 CC := $(TOOLCHAIN)clang --target=$(ARCH)
@@ -33,7 +32,7 @@ CFLAGS := -O2 -Wall -g -Wundef -Werror=strict-prototypes -fno-common -fno-PIE \
 	-Wsign-compare -Wunused-parameter -Wno-multichar \
 	-ffreestanding -fpic -ffunction-sections -fdata-sections \
 	-nostdinc -isystem $(shell $(CC) -print-file-name=include) -isystem sysinc \
-	-fno-stack-protector -mgeneral-regs-only -mstrict-align -march=armv8.2-a \
+	-fno-stack-protector -mgeneral-regs-only -mstrict-align -march=corei7 \
 	$(EXTRA_CFLAGS)
 
 CFG :=
@@ -198,7 +197,7 @@ build/%.bin: data/%.bin
 build/%.o: build/%.bin
 	@echo "  BIN   $@"
 	@mkdir -p "$(dir $@)"
-	@$(OBJCOPY) -I binary -B aarch64 -O elf64-littleaarch64 $< $@
+	@$(OBJCOPY) -I binary -B x86_64 -O elf64-littleaarch64 $< $@
 
 build/%.bin: font/%.bin
 	@echo "  CP    $@"

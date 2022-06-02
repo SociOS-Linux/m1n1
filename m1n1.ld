@@ -38,7 +38,7 @@ SECTIONS {
         /* unix_thread (entrypoint) */
         LONG(0x5); /* type = UNIX_THREAD */
         LONG(0x120); /* cmdsize */
-        LONG(6); /* ARM_THREAD64 */
+        LONG(6); /* X86_THREAD64 */
         LONG(0x44); /* length */
         . += 32 * 8; /* useless registers */
         QUAD(_start + _va_off) /* pc */
