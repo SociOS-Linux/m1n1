@@ -1,5 +1,5 @@
 ARCH ?=  x86_64
-RUSTARCH ?= x86_64/ 
+RUSTARCH ?= rustc 
 
 ifeq ($(shell uname),Darwin)
 USE_CLANG ?= 1
